@@ -8,7 +8,22 @@
   <body class="bg-gray-100 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 rounded shadow-md w-96 text-center">
       <h1 class="text-2xl mb-4">Bienvenue, <%= user.displayName %></h1>
-      <p>Email: <%= user.emails[0].value %></p>
+      <p class="mb-6">Email: <%= user.emails[0].value %></p>
+
+      <a
+        href="/quiz"
+        class="block w-full bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mb-4"
+      >
+        Commencer le Quiz
+      </a>
+
+      <a
+        href="/add-question"
+        class="block w-full bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded mb-4"
+      >
+        Ajouter une Question
+      </a>
+
       <a href="/logout" class="block mt-4 text-blue-500">Se déconnecter</a>
     </div>
   </body>
