@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Accueil</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96 text-center">
+      <h1 class="text-2xl mb-4">Bienvenue, <%= user.displayName %></h1>
+      <p>Email: <%= user.emails[0].value %></p>
+      <a href="/logout" class="block mt-4 text-blue-500">Se déconnecter</a>
+    </div>
+  </body>
+</html>

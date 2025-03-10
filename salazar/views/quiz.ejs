@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Quiz</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+      <h1 class="text-xl mb-4"><%= question %></h1>
+      <form action="/quiz" method="POST">
+        <% choices.forEach(function(choice){ %>
+        <div class="mb-2">
+          <label class="inline-flex items-center">
+            <input
+              type="radio"
+              name="answer"
+              value="<%= choice %>"
+              required
+              class="form-radio"
+            />
+            <span class="ml-2"><%= choice %></span>
+          </label>
+        </div>
+        <% }) %>
+        <button
+          type="submit"
+          class="w-full bg-green-500 text-white p-2 rounded"
+        >
+          Valider
+        </button>
+      </form>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Ajouter une Question</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+      <h1 class="text-2xl mb-4 text-center">Ajouter une Question</h1>
+      <% if(error) { %>
+      <p class="text-red-500 text-center mb-4"><%= error %></p>
+      <% } %>
+      <form action="/add-question" method="POST">
+        <input
+          name="question"
+          type="text"
+          placeholder="Question"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="choice1"
+          type="text"
+          placeholder="Choix 1"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="choice2"
+          type="text"
+          placeholder="Choix 2"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="choice3"
+          type="text"
+          placeholder="Choix 3"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="choice4"
+          type="text"
+          placeholder="Choix 4"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="answer"
+          type="text"
+          placeholder="Réponse correcte"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <button
+          type="submit"
+          class="w-full bg-green-500 text-white p-2 rounded"
+        >
+          Ajouter
+        </button>
+      </form>
+      <a href="/start" class="block mt-4 text-center text-gray-500">Retour</a>
+    </div>
+  </body>
+</html>

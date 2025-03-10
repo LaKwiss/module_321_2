@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Démarrer le Quiz</title>
+  </head>
+  <body class="bg-gray-100">
+    <div class="flex justify-end p-4">
+      <a href="/add-question" class="text-gray-600 hover:text-gray-800">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M11 4h2M12 4v16m8-8H4"
+          />
+        </svg>
+      </a>
+    </div>
+    <div class="flex flex-col items-center justify-center min-h-screen">
+      <h1 class="text-3xl mb-8">Bienvenue au Quiz</h1>
+      <a href="/start-quiz" class="bg-blue-500 text-white px-4 py-2 rounded"
+        >Start</a
+      >
+      <a href="/logout" class="mt-4 text-gray-500">Déconnexion</a>
+    </div>
+  </body>
+</html>

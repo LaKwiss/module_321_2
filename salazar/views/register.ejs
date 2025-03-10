@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>Inscription</title>
+  </head>
+  <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div class="bg-white p-8 rounded shadow-md w-96">
+      <h1 class="text-2xl mb-4 text-center">Inscription</h1>
+      <% if(error) { %>
+      <p class="text-red-500 text-center mb-4"><%= error %></p>
+      <% } %>
+      <form action="/register" method="POST">
+        <input
+          name="username"
+          type="text"
+          placeholder="Nom d'utilisateur"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <input
+          name="password"
+          type="password"
+          placeholder="Mot de passe"
+          class="w-full mb-4 p-2 border rounded"
+          required
+        />
+        <button type="submit" class="w-full bg-blue-500 text-white p-2 rounded">
+          S'inscrire
+        </button>
+      </form>
+      <a href="/login" class="block mt-4 text-center text-gray-500"
+        >Déjà inscrit ? Connectez-vous</a
+      >
+    </div>
+  </body>
+</html>
