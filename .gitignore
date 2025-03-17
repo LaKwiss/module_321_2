@@ -1,4 +1,25 @@
+# Fichiers d'environnement
+.env
+
+# Répertoires de dépendances
+node_modules
 castro/node_modules
 salazar/node_modules
 
-salazar/.env
+# Répertoires de données
+data/
+*.db
+
+# Fichiers de logs
+logs
+*.log
+npm-debug.log*
+
+# Répertoires de sortie de build
+dist
+build
+
+# Fichiers temporaires
+.DS_Store
+.tmp
+Thumbs.db

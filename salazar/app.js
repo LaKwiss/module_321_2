@@ -13,7 +13,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(
   session({
-    secret: "secret",
+    secret: process.env.SESSION_SECRET || "secret",
     resave: false,
     saveUninitialized: false,
   })
@@ -26,7 +26,8 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Configuration des services
-const CASTRO_SERVICE = "http://localhost:3002";
+const CASTRO_SERVICE = process.env.CASTRO_SERVICE || "http://localhost:3002";
+console.log(`Utilisation du service Castro à: ${CASTRO_SERVICE}`);
 
 // Passport configuration : sérialisation et désérialisation de l'utilisateur
 passport.serializeUser((user, done) => {
@@ -37,11 +38,21 @@ passport.deserializeUser((user, done) => {
 });
 
 // Configuration de la stratégie Google OAuth2
+const clientID = process.env.GOOGLE_CLIENT_ID;
+const clientSecret = process.env.GOOGLE_CLIENT_SECRET;
+
+if (!clientID || !clientSecret) {
+  console.warn(
+    "ATTENTION: GOOGLE_CLIENT_ID ou GOOGLE_CLIENT_SECRET non définis!"
+  );
+  console.warn("L'authentification Google ne fonctionnera pas correctement.");
+}
+
 passport.use(
   new GoogleStrategy(
     {
-      clientID: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+      clientID: clientID,
+      clientSecret: clientSecret,
       callbackURL: "/auth/google/callback",
     },
     (accessToken, refreshToken, profile, done) => {
@@ -219,6 +230,26 @@ app.post("/add-question", auth, async (req, res) => {
   }
 });
 
+// Ajouter une route de statut/santé
+app.get("/health", (req, res) => {
+  axios
+    .get(`${CASTRO_SERVICE}/health`)
+    .then((response) => {
+      res.json({
+        status: "ok",
+        service: "salazar",
+        castro: "connected",
+      });
+    })
+    .catch((error) => {
+      res.json({
+        status: "warning",
+        service: "salazar",
+        castro: "disconnected",
+      });
+    });
+});
+
 // Déconnexion
 app.get("/logout", (req, res) => {
   req.logout(() => {
@@ -226,5 +257,7 @@ app.get("/logout", (req, res) => {
   });
 });
 
-const port = 3000;
-app.listen(port, () => console.log(`Salazar app listening on port ${port}`));
+const port = process.env.SALAZAR_PORT || 3000;
+app.listen(port, "0.0.0.0", () =>
+  console.log(`Salazar app listening on port ${port}`)
+);

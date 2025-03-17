@@ -10,7 +10,10 @@ app.set("view engine", "ejs");
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
-const db = new sqlite3.Database("db.db");
+// Utiliser le chemin de la base de données depuis les variables d'environnement s'il est défini
+const dbPath = process.env.DB_PATH || path.join(__dirname, "db.db");
+console.log(`Utilisation de la base de données : ${dbPath}`);
+const db = new sqlite3.Database(dbPath);
 
 db.serialize(() => {
   // Création de la table questions avec contrainte UNIQUE
@@ -160,5 +163,18 @@ app.get("/user/score", (req, res) => {
   });
 });
 
-const port = 3002;
-app.listen(port, () => console.log(`castro app listening on port ${port}`));
+// Ajouter une route de statut/santé
+app.get("/health", (req, res) => {
+  res.json({ status: "ok", service: "castro" });
+});
+
+const port = process.env.CASTRO_PORT || 3002;
+app.listen(port, "0.0.0.0", () =>
+  console.log(`Castro app listening on port ${port}`)
+);
+
+// Gestion propre de l'arrêt pour fermer la base de données
+process.on("SIGINT", () => {
+  db.close();
+  process.exit(0);
+});

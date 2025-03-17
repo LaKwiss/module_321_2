@@ -1,0 +1,48 @@
+version: "3.8"
+
+services:
+  castro:
+    build:
+      context: ./castro
+      dockerfile: Dockerfile
+    ports:
+      - "3002:3002" # Port Castro
+    volumes:
+      - ./data:/app/data # Pour persister les données SQLite
+    environment:
+      - DB_PATH=/app/data/castro.db
+      - CASTRO_PORT=3002
+    restart: unless-stopped
+    networks:
+      - quiz-network
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:3002/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+
+  salazar:
+    build:
+      context: ./salazar
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Port Salazar
+    environment:
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - CASTRO_SERVICE=http://castro:3002
+      - SALAZAR_PORT=3000
+      - SESSION_SECRET=${SESSION_SECRET:-superSecretSessionKey}
+    depends_on:
+      castro:
+        condition: service_healthy
+    restart: unless-stopped
+    networks:
+      - quiz-network
+
+networks:
+  quiz-network:
+    driver: bridge
+
+volumes:
+  data:
