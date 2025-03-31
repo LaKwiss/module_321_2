@@ -48,8 +48,7 @@ Cette architecture utilise Docker Compose pour orchestrer deux conteneurs distin
    ```
 
 2. Accédez à l'application via:
-   - Salazar (Frontend): http://localhost:3000
-   - Castro (API): http://localhost:3002/health (pour vérifier que le service fonctionne)
+   - Salazar (Frontend): http://app.ygb.ich-0321.cidisi.ch
 
 ### Structure des données persistantes
 

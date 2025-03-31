@@ -26,7 +26,7 @@ app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, "public")));
 
 // Configuration des services
-const CASTRO_SERVICE = process.env.CASTRO_SERVICE || "http://localhost:3002";
+const CASTRO_SERVICE = "http://api.ygb.ich-0321.cidisi.ch:3002";
 console.log(`Utilisation du service Castro à: ${CASTRO_SERVICE}`);
 
 // Passport configuration : sérialisation et désérialisation de l'utilisateur
